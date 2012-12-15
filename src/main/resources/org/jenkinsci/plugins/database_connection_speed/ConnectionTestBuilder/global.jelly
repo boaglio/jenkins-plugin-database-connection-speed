@@ -1,0 +1,8 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <f:section title="Database Connection Speed Test">
+    <f:entry title="detalhes" field="detalhes"
+      description="Exibir acesso ao banco de dados com detalhes">
+      <f:checkbox />
+    </f:entry>
+  </f:section>
+</j:jelly>
