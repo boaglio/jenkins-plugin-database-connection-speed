@@ -50,42 +50,42 @@ public class TestConnection {
 			sql = BancoDeDados.SQLServer.getBuscarDataSQL();
 		}
 
-		if (detalhes) {
-			listener.getLogger().println("Carregando driver...");
-		}
-		Class.forName(driver);
-
-		Connection conn = DriverManager.getConnection(url,usuario,senha);
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rset = null;
 		try {
-			Statement stmt = conn.createStatement();
-			try {
-				if (detalhes) {
-					listener.getLogger().println("Buscando a data de hoje...");
-				}
-				ResultSet rset = stmt.executeQuery(sql);
-				try {
-					Date data = null;
-					while (rset.next()) {
-						data = rset.getDate(1);
-					}
-					if (detalhes) {
-						listener.getLogger().println("Resultado do SQL: " + data);
-					}
-				} finally {
-					try {
-						rset.close();
-					} catch (Exception ignore) {}
-				}
-			} finally {
-				try {
-					stmt.close();
-				} catch (Exception ignore) {}
+
+			if (detalhes) {
+				listener.getLogger().println("Carregando driver...");
 			}
+			Class.forName(driver);
+
+			conn = DriverManager.getConnection(url,usuario,senha);
+			stmt = conn.createStatement();
+
+			if (detalhes) {
+				listener.getLogger().println("Buscando a data de hoje...");
+			}
+			rset = stmt.executeQuery(sql);
+
+			Date data = null;
+			while (rset.next()) {
+				data = rset.getDate(1);
+			}
+			if (detalhes) {
+				listener.getLogger().println("Resultado do SQL: " + data);
+			}
+
+		} catch (Exception e) {
+			listener.getLogger().println("Erro:" + e.getMessage());
 		} finally {
 			try {
+				rset.close();
+				stmt.close();
 				conn.close();
 			} catch (Exception ignore) {}
 		}
+
 		if (detalhes) {
 			listener.getLogger().println("Finalizando...");
 		}

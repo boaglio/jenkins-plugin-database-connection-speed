@@ -15,5 +15,4 @@
   <f:entry title="senha" field="senha">
     <f:password />
   </f:entry>
-
 </j:jelly>
